@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Árbol Desplegable de Provincias y Ciudades</title>
+    <style>
+        .subrayado {
+            text-decoration: underline;
+        }
+    </style>
+    
+    <script type="text/javascript">
+        function mostrarCiudades(event) {
+            // Obtener el elemento padre (la provincia)
+            let provincia = event.target.parentNode;
+            
+            // Obtener la lista de ciudades dentro de la provincia
+            let ciudades = provincia.querySelector('.ciudades');
+            
+            // Mostrar u ocultar las ciudades
+            if (ciudades.style.display === "none") {
+                ciudades.style.display = "block";
+                provincia.classList.remove('subrayado'); // Remover el subrayado si estaba presente
+            } else {
+                ciudades.style.display = "none";
+                provincia.classList.add('subrayado'); // Agregar el subrayado si estaba oculto
+            }
+        }
+    </script>
+    
+</head>
+<body>
+    <h1>Provincias y Ciudades</h1>
+    <ul class="provincias">
+        <li class="provincia">Neuquén <span onclick="mostrarCiudades(event)">-</span>
+            <ul class="ciudades">
+                <li class="ciudad">Zapala</li>
+                <li class="ciudad">San Martin</li>
+                <li class="ciudad">Junin</li>
+            </ul>
+        </li>
+        <li class="provincia">Rio Negro <span onclick="mostrarCiudades(event)">-</span>
+            <ul class="ciudades">
+                <li class="ciudad">Cipolletti</li>
+                <li class="ciudad">Fernandez Oro</li>
+                <li class="ciudad">Roca</li>
+                <li class="ciudad">Cinco Saltos</li>
+                <li class="ciudad">Allen</li>
+            </ul>
+        </li>
+        <li class="provincia">Buenos Aires <span onclick="mostrarCiudades(event)">-</span>
+            <ul class="ciudades">
+                <li class="ciudad">La Plata</li>
+                <li class="ciudad">Mar del Plata</li>
+                <li class="ciudad">Necochea</li>
+            </ul>
+        </li>
+    </ul>
+</body>
+</html>

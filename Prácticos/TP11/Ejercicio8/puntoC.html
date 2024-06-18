@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redireccionamiento según navegador</title>
+    <script type="text/javascript">
+
+        function obtenerNombreNavegador() {
+            let agente = navigator.userAgent;
+            let navegadores = ["Chrome", "Firefox", "Safari", "MSIE", "Edge", "Trident", "Konqueror"];
+
+            for (let i = 0; i < navegadores.length; i++) {
+                if (agente.indexOf(navegadores[i]) !== -1) {
+                    return navegadores[i];
+                }
+            }
+             return "Desconocido";
+        }
+
+        function redireccionarSegunNavegador() {
+            let navegador = obtenerNombreNavegador();
+            switch (navegador) {
+                case "Microsoft Internet Explorer":
+                    window.location.replace("http://www.microsoft.com/ie");
+                    break;
+                case "Firefox":
+                    window.location.replace("http://www.mozilla.com/firefox/");
+                    break;
+                case "Konkeror":
+                    window.location.replace("http://konqueror.org");
+                    break;
+                default:
+                    document.getElementById("mensaje").textContent = "Browser desconocido";
+                    break;
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", redireccionarSegunNavegador);
+
+    </script>
+</head>
+<body>
+    <h1>Redireccionamiento de Navegador</h1>
+    <p id="mensaje"></p>
+</body>
+</html>

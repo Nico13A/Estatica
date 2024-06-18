@@ -1,0 +1,90 @@
+body {
+    margin: 0; 
+    padding: 0; 
+    font-family: sans, "lucida grande", tahoma, verdana, sans-serif; 
+    font-size: 11px; 
+    background-color: #fff; 
+    color: #000; 
+}
+
+#intro, #supportingText {
+    width: 80%;
+    float: right;
+}
+
+#intro #pageHeader h1 {
+    background-image: url("./css_zen_garden.gif");
+    background-repeat: no-repeat;
+    background-size: 200px;
+    background-position: 10px 10px;
+    background-color: #ddd;
+    padding: 10px;
+    border: 3px solid black;
+    position: relative;
+    z-index: 1;
+}
+
+#intro #pageHeader h1 span {
+    visibility: hidden;
+}
+
+#intro #pageHeader h2 {
+    padding: 15px;
+    border: 3px solid grey;
+    position: relative;
+    top: -30px;
+    background-image: url("./zen_h2_back.gif");
+    background-position: top;
+    background-repeat: repeat-x;
+    background-color: #489AED;
+}
+
+#linkList {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20%;
+    float: left;
+}
+
+#linkList #linkList2 #lselect ul li {
+    list-style: url("./blue_bullet.gif");
+}
+
+#linkList #linkList2 #larchives ul {
+    padding: 0 30px;
+}
+
+#linkList #linkList2 #larchives ul li {
+    display: inline;
+}
+
+#linkList #linkList2 #larchives ul li:nth-child(1) {
+    float: right;
+}
+
+#linkList #linkList2 #larchives ul li:nth-child(2) {
+    float: left;
+}
+
+#linkList #linkList2 #larchives ul li:last-child {
+    display: block;
+    clear: both;
+    text-align: right;
+}
+
+#linkList #linkList2 #lresources ul {
+    list-style-type: none;
+    background-color: #9cf;
+}
+
+#linkList #linkList2 #lresources ul li a{
+    text-decoration: none;
+    color: #036;
+    font-weight: bold;
+}
+
+#linkList #linkList2 #lresources ul li a:hover {
+    background-color: #036;
+    color: #9cf;
+}

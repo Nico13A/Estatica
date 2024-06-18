@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+    <script type="text/javascript">
+        function enviarMensaje() {
+            let nombreUsuario = document.getElementById("nombre").value;
+            let mensajeInput = document.getElementById("mensaje");
+            let mensaje = mensajeInput.value;
+            let contenedorMensaje = document.getElementById("mensaje-contenedor");
+            if (mensaje != "" && nombreUsuario != "") {
+                let fecha = new Date();
+                let fechaMensaje = `${fecha.getDate()}/${fecha.getMonth()+1}/${fecha.getFullYear()} ${fecha.getHours()}:${fecha.getMinutes()}:${fecha.getSeconds()}`;
+
+                let mensajeFechaNombre = document.createElement("p");
+                mensajeFechaNombre.innerHTML = `${fechaMensaje} por <strong>${nombreUsuario}</strong>`;
+
+                let mensajeEnContenedor = document.createElement("p");
+                mensajeEnContenedor.innerText = mensaje;
+
+                contenedorMensaje.appendChild(mensajeFechaNombre);
+                contenedorMensaje.appendChild(mensajeEnContenedor);
+                
+                mensajeInput.value = "";
+                mensajeInput.focus();
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>CHAT</h1>
+    <form>
+        <label for="nombre">Nombre</label>
+        <input type="text" name="nombre" id="nombre">
+        <br>
+        <textarea name="mensaje" id="mensaje" cols="30" rows="10" placeholder="Escribe un mensaje"></textarea>
+        <button type="button" onclick="enviarMensaje()">Enviar mensaje</button>
+    </form>
+
+    <div id="mensaje-contenedor">
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos y objetos</title>
+    <script type="text/javascript">
+        function cambiarColor(color) {
+            let listaColores = document.getElementById("colores");
+            listaColores.style.backgroundColor = color;
+        }
+    </script>
+</head>
+<body>
+    <h1>Colores</h1>
+    <ul id="colores">
+        <li onmouseover="cambiarColor('white')">Blanco</li>
+        <li onmouseover="cambiarColor('black')">Negro</li>
+        <li onmouseover="cambiarColor('blue')">Azul</li>
+        <li onmouseover="cambiarColor('red')">Rojo</li>
+        <li onmouseover="cambiarColor('yellow')">Amarillo</li>
+    </ul>
+</body>
+</html>

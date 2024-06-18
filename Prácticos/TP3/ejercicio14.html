@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario - Ejercicio 14</title>
+</head>
+<body>
+    <form action="#" method="get">
+        <table border="1" width="400">
+            <tr bgcolor = "#92c5FC">
+                <th>Name</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td width="200"><input type="text" name="nombre" id="nombre" size="26"></td>
+            </tr>
+            <tr>
+                <td>Sex</td>
+                <td>
+                    <input type="radio" name="sex" id="sex" size="10">
+                    <span>Male</span>
+                    <br>
+                    <input type="radio" name="sex" id="sex" checked="checked">
+                    <span>Female</span>
+                </td>
+            </tr>
+            <tr>
+                <td>Eye color</td>
+                <td>
+                    <select size="1" name="color">
+                        <option>blue</option>
+                        <option selected="selected">green</option>
+                        <option>brown</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Check all that apply</td>
+                <td>
+                    <input type="checkbox"><span>Over 6 feet tall</span>
+                    <br>
+                    <input type="checkbox"><span>Over 200 pounds</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">Describe your athletic ability:
+                    <textarea name="textarea" cols="50" rows="3"></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="Enter my information">
+                </td>
+            </tr>
+        </table>
+    </form>
+        
+</body>
+</html>

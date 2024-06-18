@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Contacto</title>
+    <style>
+        .error {
+            border: 1px solid red;
+        }
+    </style>
+    <script type="text/javascript">
+        function validarFormulario() {
+            // Obtener referencias a los campos del formulario
+            let nombre = document.getElementById("nombre");
+            let apellido = document.getElementById("apellido");
+            let email = document.getElementById("email");
+            let comentarios = document.getElementById("comentarios");
+
+            // Validar si los campos están completos
+            let camposCompletos = true;
+
+            if (nombre.value.trim() === "") {
+                nombre.classList.add("error");
+                camposCompletos = false;
+            } else {
+                nombre.classList.remove("error");
+            }
+
+            if (apellido.value.trim() === "") {
+                apellido.classList.add("error");
+                camposCompletos = false;
+            } else {
+                apellido.classList.remove("error");
+            }
+
+            if (email.value.trim() === "") {
+                email.classList.add("error");
+                camposCompletos = false;
+            } else {
+                email.classList.remove("error");
+            }
+
+            if (comentarios.value.trim() === "") {
+                comentarios.classList.add("error");
+                camposCompletos = false;
+            } else {
+                comentarios.classList.remove("error");
+            }
+
+            // Si todos los campos están completos, mostrar los datos en un div
+            if (camposCompletos) {
+                mostrarDatos();
+            }
+        }
+
+        function mostrarDatos() {
+            let nombre = document.getElementById("nombre").value;
+            let apellido = document.getElementById("apellido").value;
+            let email = document.getElementById("email").value;
+            let comentarios = document.getElementById("comentarios").value;
+
+            let datosDiv = document.getElementById("datos");
+            datosDiv.innerHTML = `
+                <h2>Datos del Formulario:</h2>
+                <p><strong>Nombre:</strong> ${nombre}</p>
+                <p><strong>Apellido:</strong> ${apellido}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Comentarios:</strong> ${comentarios}</p>
+            `;
+        }
+    </script>
+</head>
+<body>
+    <h1>Formulario de Contacto</h1>
+    <form>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required><br><br>
+
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="comentarios">Comentarios:</label><br>
+        <textarea id="comentarios" name="comentarios" rows="4" cols="50" required></textarea><br><br>
+
+        <button type="button" onclick="validarFormulario()">Enviar</button>
+    </form>
+
+    <div id="datos"></div>
+</body>
+</html>

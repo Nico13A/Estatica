@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctico 3</title>
+</head>
+<body>
+    <script type="text/javascript">
+        let mensaje = prompt("Ingrese un mensaje: ");
+        document.write(mensaje.toUpperCase() + "<br>");
+        document.write(mensaje.toLowerCase() + "<br>");
+        document.write(mensaje.substring(5, 16) + "<br>");
+        if (mensaje.includes("hola")) {
+            document.write("hola que tal <br>");
+        }
+        let mensajeSinEspacio = mensaje.replace(/\s+/g, "");
+        /*
+            \s encuentra cualquier tipo de espacio en blanco.
+            + asegura que se encuentren uno o más espacios consecutivos.
+            g busca globalmente en toda la cadena.
+        */
+        document.write(mensajeSinEspacio + "<br>");
+        //Preguntar lo del ingles.
+    </script>
+</body>
+</html>

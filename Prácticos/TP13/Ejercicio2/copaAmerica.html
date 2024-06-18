@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copa América</title>
+    <script type="text/javascript" src="./default.js"></script>
+    <script type="text/javascript">
+        function buscarOponentes() {
+            let seleccionado = document.getElementById("pais").value;
+            let oponente = oponentes(seleccionado);
+            let mensajeDiv = document.getElementById("mensaje");
+            mensajeDiv.innerHTML = `El oponente de <strong>${seleccionado}</strong> en la segunda fecha de la Copa América es: <strong>${oponente}</strong>`;
+        }
+    </script>
+</head>
+<body>
+    <h1>Formulario Copa América</h1>
+    <form>
+        <label for="pais">Selecciona un país:</label>
+        <select name="pais" id="pais">
+            <option value="Argentina">Argentina</option>
+            <option value="Bolivia">Bolivia</option>
+            <option value="Brasil">Brasil</option>
+            <option value="Venezuela">Venezuela</option>
+        </select>
+        <br><br>
+        <button type="button" onclick="buscarOponentes()">Enviar</button>
+    </form>
+
+    <div id="mensaje"></div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recorriendo</title>
+    <script type="text/javascript">
+        /*
+        Esta función recorre todos los objetos hijos del objeto que entra
+        como parámetro de tipo Element y text.
+        */
+        function DOM(objeto){
+            // Dependiendo del tipo de nodo muestra diferentes propiedades
+            switch (objeto.nodeType){
+                case 1: // Element
+                    // Cambia el estilo del objeto para que se visualice
+                    objeto.style.backgroundColor = "silver";
+                    // Muestra un alert con tagName y innerHTML
+                    alert("Elemento Node type: " + objeto.nodeType + "\nTag name: " + objeto.tagName + "\n" + objeto.innerHTML);
+                    // Cambia el color del texto a gris
+                    objeto.style.color = "gray";
+                    // Le asigno a la variable a el arreglo de nodos hijos
+                    var a = objeto.childNodes;
+                    // Para cada uno de los nodos hijos ejecuto la función DOM
+                    for (var i = 0; i < a.length; i++) {
+                        DOM(a[i]);
+                    }
+                    break;
+                case 3: // Text
+                    // Se muestra un alert con la propiedad nodeValue
+                    alert("Texto Node type: " + objeto.nodeType + "\nnode Value: " + objeto.nodeValue);
+                    break;
+            }
+        }
+
+        function recorrerLista() {
+            var lista = document.querySelector('ul'); // Selecciona el primer elemento <ul>
+            DOM(lista);
+        }
+    </script>
+</head>
+<body>
+    <ul>
+        <li>Menu 1
+            <ul>
+                <li>Item 1
+                    <ul>
+                        <li>Item a</li>
+                        <li>Item b</li>
+                    </ul>
+                </li>
+                <li>Item 2</li>
+            </ul>
+        </li>
+        <li>Menu 2
+            <ul>
+                <li>Item 3</li>
+                <li>Item 4</li>
+            </ul>
+        </li>
+    </ul>
+    <button onclick="recorrerLista()">Listar</button>
+</body>
+</html>

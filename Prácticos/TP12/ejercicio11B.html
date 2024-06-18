@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date</title>
+</head>
+<body>
+    <h1>Calcular edad</h1>
+    <button onclick="calcularEdad()">Calcular edad</button>
+    <p id="mensaje"></p>
+    <script type="text/javascript">
+        function calcularEdad() {
+            let mensaje = document.getElementById("mensaje");
+            let anioNacimiento = prompt("Ingrese su año de nacimiento: ");
+            anioNacimiento = parseInt(anioNacimiento);
+            let edad = new Date().getFullYear() - anioNacimiento;
+            mensaje.textContent = edad;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla</title>
+    <script type="text/javascript">
+
+
+        function borrarFila(numero) {
+            let miTabla = document.getElementById("myTable");
+            miTabla.deleteRow(numero);
+        }
+
+        function insertarFila(nombre, direccion, ciudad, telefono) {
+            let tBody = document.getElementById("myTable").getElementsByTagName("tbody")[0];
+            let fila = tBody.insertRow(tBody.rows.length);
+            let celda0 = fila.insertCell(0);
+            let celda1 = fila.insertCell(1);
+            let celda2 = fila.insertCell(2);
+            let celda3 = fila.insertCell(3);
+            let celda4 = fila.insertCell(4);
+            celda0.innerHTML = nombre;
+            celda1.innerHTML = direccion;
+            celda2.innerHTML = ciudad;
+            celda3.innerHTML = telefono;
+            celda4.innerHTML = `<a href='#' onclick='borrarFila(this.parentNode.parentNode.rowIndex)'>Borrar</a>`;
+        }
+        
+        function iniciarTabla() {
+            let datosIniciales = new Array();
+            datosIniciales[0] = ["Juan Pérez","Av. Argentina 3000","Neuquén Capital","154888888"];
+            datosIniciales[1] = ["Tito Sánchez","Av. Del Trabajador 300","Neuquén Capital","154555555"];
+            datosIniciales[2] = ["Cecilia Carrizo","Sierra Grande 900","Neuquén Capital","4485895"];
+            datosIniciales[3] = ["Pedro González","Amaranto Usares 1254","Neuquén Capital","4420444"];
+            datosIniciales[4] = ["Verónica Lozano","Saturnino Torres 100","Neuquén Capital","5425842"];
+            for (let i in datosIniciales) {
+                insertarFila(datosIniciales[i][0], datosIniciales[i][1], datosIniciales[i][2], datosIniciales[i][3]);
+            }
+        }
+
+
+    </script>
+</head>
+<body onload="iniciarTabla()">
+    <h1>Agenda</h1>
+    <form action="#">
+        Nombre <input type="text" id="nombre"><br>
+        Dirección <input type="text" id="direccion"><br>
+        Ciudad <input type="text" id="ciudad"><br>
+        Teléfono <input type="tel" id="telefono"><br>
+        <input type="button" value="Nuevo Registro" onclick="insertarFila(document.getElementById('nombre').value, document.getElementById('direccion').value, document.getElementById('ciudad').value, document.getElementById('telefono').value)"><br><br>
+    </form>
+    <table id="myTable" border="1">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Dirección</th>
+                <th>Ciudad</th>
+                <th>Teléfono</th>
+                <th>Operación</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</body>
+</html>
