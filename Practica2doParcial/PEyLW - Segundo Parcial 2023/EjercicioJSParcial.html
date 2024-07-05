@@ -1,0 +1,368 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Parcial JS </title>
+  <link href="default.css" rel="stylesheet" type="text/css" />
+
+  <script>
+    // Resuelva el parcial en esta seccion
+    // Ud. puede usar o no esta variable. No es obligatorio.
+    document.addEventListener('DOMContentLoaded', () => {
+
+      var RegistroVotantes = new Array();
+      const botonRegistrar = document.getElementById('registrar');
+      const botonCierre = document.getElementById('cierreDeMesa');
+      //document.querySelector('input[value="Cierre de mesa"]')
+      const resultados = document.getElementById('dResultados');
+      const votantes = document.getElementById('Votantes');
+      let votosDeKang = document.getElementById('ResultadosKang');
+      let votosDeKodos = document.getElementById('ResultadosKodos');
+      let votosEnBlanco = document.getElementById('ResultadosBlanco');
+      let sumaVotosKang = 0;
+      let sumaVotosKodos = 0;
+      let sumaVotosBlanco = 0;
+
+      const verificarOpciones = opcion => {
+        let opcionValida = false;
+        if (opcion === 'KODOS' || opcion === 'KANG' || opcion === 'BLANCO') {
+          opcionValida = true;
+        }
+        return opcionValida;
+      }
+
+      const verificarDni = dni => {
+        let dniValido = false;
+        if (dni >= 10000000 && dni <= 99999999) {
+          dniValido = true;
+        }
+        return dniValido;
+      }
+
+      const verificarSexo = sexo => {
+        let sexoValido = false;
+        if (sexo === 'M' || sexo === 'F') {
+          sexoValido = true;
+        }
+        return sexoValido;
+      }
+
+      const esDniRepetido = (dni, registroVotos) => {
+        let dniRepetido = false;
+        let i = 0;
+        while (i < registroVotos.length && !dniRepetido) {
+          if (registroVotos[i] === dni) {
+            dniRepetido = true;
+          }
+          i++;
+        }
+        return dniRepetido;
+      }
+
+      const crearSpanError = (input, mensajeError) => {
+        let nuevaCelda = document.createElement('td');
+        nuevaCelda.textContent = mensajeError;
+        nuevaCelda.style.color = "red";
+        input.parentNode.parentNode.appendChild(nuevaCelda);
+      }
+
+      const borrarSpanError = (input) => {
+        let ultimoHijoDeFila = input.parentNode.parentNode.lastChild;
+        input.parentNode.parentNode.removeChild(ultimoHijoDeFila);
+      }
+
+      const pintarErrores = input => input.style.border = "2px solid red";
+
+      const ocultarErrores = input => input.style.border = "2px solid #767676";
+
+      botonRegistrar.addEventListener('click', () => {
+        const inputCandidato = document.getElementById('txCandidato');
+        const inputDni = document.getElementById('txDNI');
+        const inputSexo = document.getElementById('txSexo');
+
+        let candidato = inputCandidato.value.toUpperCase();
+        let dni = inputDni.value;
+        let sexo = inputSexo.value.toUpperCase();
+
+        let validacion = true;
+
+        // Verifico candidato
+        if (!candidato) {
+          validacion = false;
+          pintarErrores(inputCandidato);
+          if (inputCandidato.parentNode.parentNode.childElementCount > 2) {
+            borrarSpanError(inputCandidato);
+            crearSpanError(inputCandidato, "Debe agregar un candidato.");
+          }
+          else {
+            crearSpanError(inputCandidato, "Debe agregar un candidato.");
+          }
+        }
+        else if (!verificarOpciones(candidato)) {
+          validacion = false;
+          pintarErrores(inputCandidato);
+          if (inputCandidato.parentNode.parentNode.childElementCount > 2) {
+            borrarSpanError(inputCandidato);
+            crearSpanError(inputCandidato, "Debe ingresar kodos, kang o blanco.");
+          }
+          else {
+            crearSpanError(inputCandidato, "Debe ingresar kodos, kang o blanco.");
+          }
+        }
+        else {
+          ocultarErrores(inputCandidato);
+          if (inputCandidato.parentNode.parentNode.childElementCount > 2) borrarSpanError(inputCandidato);
+        }
+        //if (!candidato) validacion = false;
+        //if (!verificarOpciones(candidato)) validacion = false;
+
+
+        // Verifico dni
+        if (!dni) {
+          validacion = false;
+          pintarErrores(inputDni);
+          if (inputDni.parentNode.parentNode.childElementCount > 2) {
+            borrarSpanError(inputDni);
+            crearSpanError(inputDni, "Debe ingresar un número de documento.");
+          }
+          else {
+            crearSpanError(inputDni, "Debe ingresar un número de documento.");
+          }
+        }
+        else if (!verificarDni(parseInt(dni))) {
+          validacion = false;
+          pintarErrores(inputDni);
+          if (inputDni.parentNode.parentNode.childElementCount > 2) {
+            borrarSpanError(inputDni);
+            crearSpanError(inputDni, "Debe ingresar un DNI válido.");
+          }
+          else {
+            crearSpanError(inputDni, "Debe ingresar un DNI válido.");
+          }
+        }
+        else if (esDniRepetido(parseInt(dni), RegistroVotantes)) {
+          validacion = false;
+          pintarErrores(inputDni);
+          if (inputDni.parentNode.parentNode.childElementCount > 2) {
+            borrarSpanError(inputDni);
+            crearSpanError(inputDni, "Esta persona ya emitió su voto. El fraude está mal claro que sí.");
+          }
+          else {
+            crearSpanError(inputDni, "Esta persona ya emitió su voto. El fraude está mal claro que sí.");
+          }
+        }
+        else {
+          ocultarErrores(inputDni);
+          if (inputDni.parentNode.parentNode.childElementCount > 2) borrarSpanError(inputDni);
+        }
+        //if (!dni) validacion = false;
+        //if (!verificarDni(parseInt(dni))) validacion = false;
+        /*if (esDniRepetido(parseInt(dni), RegistroVotantes)) {
+          validacion = false;
+          alert("Esta persona ya emitió su voto. El fraude está mal claro que sí");
+        }*/
+
+
+        // Verifico sexo
+        if (!sexo) {
+          validacion = false;
+          pintarErrores(inputSexo);
+          if (inputSexo.parentNode.parentNode.childElementCount > 2) {
+            borrarSpanError(inputSexo);
+            crearSpanError(inputSexo, "Debe ingresar un sexo.");
+          }
+          else {
+            crearSpanError(inputSexo, "Debe ingresar un sexo.");
+          }
+        }
+        else if (!verificarSexo(sexo)) {
+          validacion = false;
+          pintarErrores(inputSexo);
+          if (inputSexo.parentNode.parentNode.childElementCount > 2) {
+            borrarSpanError(inputSexo);
+            crearSpanError(inputSexo, "Debe ingresar un sexo válido (M/F)");
+          }
+          else {
+            crearSpanError(inputSexo, "Debe ingresar un sexo válido (M/F)");
+          }
+        }
+        else {
+          ocultarErrores(inputSexo);
+          if (inputSexo.parentNode.parentNode.childElementCount > 2) borrarSpanError(inputSexo);
+        }
+        //if (!sexo) validacion = false;
+        //if (!verificarSexo(sexo)) validacion = false;
+
+        if (validacion) {
+          RegistroVotantes.push(parseInt(dni));
+          //console.log(RegistroVotantes);
+          votantes.innerText += dni + "-";
+          if (candidato === "KANG") {
+            sumaVotosKang++;
+            votosDeKang.textContent = sumaVotosKang;
+          }
+          else if (candidato === "KODOS") {
+            sumaVotosKodos++;
+            votosDeKodos.textContent = sumaVotosKodos;
+          }
+          else if (candidato === "BLANCO") {
+            sumaVotosBlanco++;
+            votosEnBlanco.textContent = sumaVotosBlanco;
+          }
+          inputCandidato.value = "";
+          inputDni.value = "";
+          inputSexo.value = "";
+        }
+
+      })
+
+      botonCierre.addEventListener('click', () => {
+        resultados.style.display = "flex";
+        resultados.innerHTML = "";
+
+        const titulo = document.createElement('h2');
+        titulo.textContent = "Resultados"
+
+        const pGanador = document.createElement('p');
+        pGanador.textContent = "Ganador: ";
+        const spanGanador = document.createElement('span');
+        spanGanador.style.fontWeight = "bold";
+
+        const pVotos = document.createElement('p');
+        pVotos.textContent = "Gano por: ";
+        const spanVotos = document.createElement('span');
+        spanVotos.style.fontWeight = "bold";
+
+        const imgGanador = document.createElement('img');
+        imgGanador.style.width = "200px";
+
+        if (sumaVotosKang > sumaVotosKodos) {
+          spanGanador.textContent = "KANG";
+          spanVotos.textContent = `${sumaVotosKang-sumaVotosKodos} votos!!`;
+          imgGanador.src = "./images/VoteKang.png";
+        }
+        else if (sumaVotosKodos > sumaVotosKang) {
+          spanGanador.textContent = "KODOS";
+          spanVotos.textContent = `${sumaVotosKodos - sumaVotosKang} votos!!`;
+          imgGanador.src = "./images/VoteKodos.png";
+        }
+        else {
+          pGanador.textContent = "Empate";
+          pVotos.style.display = "none";
+        }
+
+        pGanador.appendChild(spanGanador);
+        pVotos.appendChild(spanVotos);
+
+        resultados.appendChild(titulo);
+        resultados.appendChild(pGanador);
+        resultados.appendChild(pVotos);
+        resultados.appendChild(imgGanador);
+
+        botonRegistrar.disabled = true;
+
+      })
+
+    })
+    
+  </script>
+
+
+</head>
+
+<body>
+  <div id="header">
+    <div id="logo" style="margin-left: 15px">
+      <h1><a href="#">Programación Estática y Laboratorio Web</a></h1>
+      <h2><a href="#">Parcial JS - 27/06/2023</a></h2>
+    </div>
+  </div>
+  <div id="menu">
+    <ul>
+      <li><a href="Consigna.html">Consigna</a></li>
+      <li><a href="EjercicioJSParcial.html">HOJA Ejercicio</a></li>
+    </ul>
+  </div>
+  <div id="content">
+
+    <form>
+      <table style="padding: 10px;">
+        <tr>
+          <td>Candidato:</td>
+          <td><input id="txCandidato" name="txCandidato" type="text" style="width:280px" /></td>
+        </tr>
+        <tr>
+          <td>DNI:</td>
+          <td><input id="txDNI" name="txDNI" type="text" style="width:280px" /></td>
+        </tr>
+        <tr>
+          <td>Sexo:</td>
+          <td><input id="txSexo" name="txSexo" type="text" style="width:64px" /></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td><input type="button" value="Registrar" id="registrar">&nbsp;<input type="button" value="Cierre de mesa" id="cierreDeMesa"></td>
+        </tr>
+
+      </table>
+    </form>
+
+    <div id="dResultados" style="display: none; flex-direction: column; align-items: center; padding: 20px 0;">
+      <h2>Resultados:</h2>
+      <!-- Ingrese aquí quien gano, por cuantos votos, y su imagen-->
+      <!--  
+      <p>Ganador: <span id="ganador"></span></p>
+      <p>Cantidad de votos: <span id="cantidadVotos"></span></p>
+      <img id="imgGanador" style="width: 200px;">
+      -->
+    </div>
+
+
+    <div style="background-color: lightblue; border: 1px solid black;padding: 10px;">
+      <span id="ResultadosKang" style="font-size: 72px;">0</span>
+      <img src="images/VoteKang.png" height="80" style="float:right">
+
+    </div>
+    <br />
+
+    <div style="background-color: lightpink; border: 1px solid black;padding: 10px;">
+      <span id="ResultadosKodos" style="font-size: 72px;">0</span>
+      <img src="images/VoteKodos.png" height="80" style="float:right">
+
+    </div>
+    <br />
+
+    <div style="padding: 10px;">
+      <span style="font-size: 36px;">En Blanco: </span> <span id="ResultadosBlanco" style="font-size: 36px;">0</span>
+    </div>
+
+    <br />
+
+    Votantes:
+    <div id="Votantes" style="border: 1px solid black;padding: 10px;">
+
+
+    </div>
+
+
+    </table>
+
+  </div>
+  <div id="footer" style="margin-top: 240px;">
+    <p id="legal">Copyright &copy; AtomoHost. All Rights Reserved.
+      Designed by <a href="http://www.freecsstemplates.org/">Free CSS
+        Templates</a>.</p>
+    <p id="links"><a href="#">Privacy Policy</a> | <a href="#">Terms
+        of Use</a></p>
+  </div>
+  <br />
+  <br />
+</body>
+
+</html>
